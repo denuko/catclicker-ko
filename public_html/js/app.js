@@ -1,3 +1,76 @@
+var initialCats = [
+    {
+        name: 'Tabby',
+        imgSrc: 'img/434164568_fea0ad4013_z.jpg',
+        clickCount: 0,
+        imgAttribution: 'https://www.flickr.com/photos/big',
+        nicknames: ['Fluffy', 'Mr Wiskers', 'Mitsi', 'Kiki', 'Neko']
+    },
+    {
+        name: 'The cat',
+        imgSrc: 'img/thecat.jpg',
+        clickCount: 0,
+        imgAttribution: '',
+        nicknames: ['Fiffy']
+    },
+    {
+        name: 'Second cat',
+        imgSrc: 'img/secondcat.jpg',
+        clickCount: 0,
+        imgAttribution: '',
+        nicknames: ['Titi']
+    },
+    {
+        name: 'Third cat',
+        imgSrc: 'img/thirdcat.jpg',
+        clickCount: 0,
+        imgAttribution: '',
+        nicknames: ['Mushi']
+    },
+    {
+        name: 'Fourth cat',
+        imgSrc: 'img/fourthcat.jpg',
+        clickCount: 0,
+        imgAttribution: '',
+        nicknames: ['Rin']
+    },
+    {
+        name: 'Fifth cat',
+        imgSrc: 'img/fifthcat.jpg',
+        clickCount: 0,
+        imgAttribution: '',
+        nicknames: ['Fuffy']
+    },
+    {
+        name: 'Sixth cat',
+        imgSrc: 'img/sixthcat.jpg',
+        clickCount: 0,
+        imgAttribution: '',
+        nicknames: ['Johnny']
+    },
+    {
+        name: 'Seventh cat',
+        imgSrc: 'img/seventhcat.jpg',
+        clickCount: 0,
+        imgAttribution: '',
+        nicknames: ['Larry']
+    },
+    {
+        name: 'Eighth cat',
+        imgSrc: 'img/cat8.jpg',
+        clickCount: 0,
+        imgAttribution: '',
+        nicknames: ['Tost']
+    },
+    {
+        name: '9th cat',
+        imgSrc: 'img/cat9.jpg',
+        clickCount: 0,
+        imgAttribution: '',
+        nicknames: ['Lucy']
+    }
+];
+
 var Cat = function (data) {
 
     this.clickCount = ko.observable(data.clickCount);
@@ -37,15 +110,21 @@ var Cat = function (data) {
 
 var ViewModel = function () {
     var self = this;
-    self.currentCat = ko.observable(new Cat({
-        clickCount: 0,
-        name: 'Tabby',
-        imgSrc: 'img/434164568_fea0ad4013_z.jpg',
-        imgAttribution: 'https://www.flickr.com/photos/big',
-        nicknames: ['Fluffy', 'Mr Wiskers', 'Mitsi', 'Kiki', 'Neko'],
-    }));
+
+    self.catList = ko.observableArray([]);
+
+    initialCats.forEach(function (catItem) {
+        self.catList.push(new Cat(catItem));
+    });
+
+    self.currentCat = ko.observable(self.catList()[0]);
+    
     self.incrementCounter = function () {
         self.currentCat().clickCount(self.currentCat().clickCount() + 1);
+    };
+    
+    self.changeCurrentCat = function (clickedCat) {
+        self.currentCat(clickedCat);
     };
 };
 
